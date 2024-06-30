@@ -22,20 +22,29 @@ const reducer = (state = initialState, action) => {
   if (action.type === 'CAKE_ORDERED'){
     return {
       ...state, 
-      numCakes: state.numCakes--
+      numCakes: state.numCakes - 1
     }
   }
   return state;
 }
 
-
-// It exposes a method called getState(),
-// allows state to be updated via dispatch(action), and
-// registers event listeners via subscribe() that
-// is called whenever state changes.
-// You can also unsubscribe from the store by calling the function
-// that was returned by the subscribe method.
-
 // The store is where all global application state is stored.
 // createStore accepts the reducer function as an argument.
-const store = createStore(reducer)
+// It exposes a method called getState() which gets the current state.
+const store = createStore(reducer);
+
+// Logs the initial state to console, because we haven't yet updated it
+console.log('Initial state: ', store.getState());
+
+// The subscribe() method accepts a callback function
+// that is called whenever state changes.
+// The app can unsubscribe from the store by calling the function
+// that was returned by the subscribe method.
+store.subscribe(() => console.log("Updated state:", JSON.stringify(store.getState())));
+
+// The store allows state to be updated via dispatch(), which
+// accepts an action or action creator as an argument.
+// Calling the action creator returns the action.
+store.dispatch(orderCake())
+store.dispatch(orderCake())
+store.dispatch(orderCake())
