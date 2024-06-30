@@ -38,13 +38,15 @@ console.log('Initial state: ', store.getState());
 
 // The subscribe() method accepts a callback function
 // that is called whenever state changes.
-// The app can unsubscribe from the store by calling the function
-// that was returned by the subscribe method.
-store.subscribe(() => console.log("Updated state:", JSON.stringify(store.getState())));
+const unsubscribe = store.subscribe(() => console.log("Updated state:", JSON.stringify(store.getState())));
 
 // The store allows state to be updated via dispatch(), which
 // accepts an action or action creator as an argument.
 // Calling the action creator returns the action.
-store.dispatch(orderCake())
-store.dispatch(orderCake())
-store.dispatch(orderCake())
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+store.dispatch(orderCake());
+
+// The app can unsubscribe from the Redux store by calling the function
+// that was returned by the subscribe method.
+unsubscribe();
