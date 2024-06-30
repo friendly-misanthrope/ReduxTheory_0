@@ -3,12 +3,20 @@
 const redux = require('redux');
 const createStore = redux.createStore;
 const CAKE_ORDERED = 'CAKE_ORDERED';
+const CAKES_RESTOCKED = 'CAKES_RESTOCKED';
 
 const orderCake = () => {
   return {
     type: CAKE_ORDERED,
     quantity: 1
   }    
+}
+
+const restockCake = (qty = 1) => {
+  return {
+    type: CAKES_RESTOCKED,
+    payload: qty
+  }
 }
 
 // A reducer is a function that accepts current state and an action object,
@@ -19,10 +27,15 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  if (action.type === 'CAKE_ORDERED'){
+  if (action.type === CAKE_ORDERED){
     return {
       ...state, 
       numCakes: state.numCakes - 1
+    }
+  } else if (action.type === CAKES_RESTOCKED) {
+    return {
+      ...state,
+      numCakes: state.numCakes + action.payload
     }
   }
   return state;
@@ -49,4 +62,6 @@ store.dispatch(orderCake());
 
 // The app can unsubscribe from the Redux store by calling the function
 // that was returned by the subscribe method.
+
+store.dispatch(restockCake(100));
 unsubscribe();
