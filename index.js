@@ -12,13 +12,15 @@ const orderCake = () => {
 // A reducer is a function that accepts current state and an action object,
 // and returns the new state:
 const initialState = {
-  numCakes: 10
+  numCakes: 10,
+  isFrozen: false
 }
 
 const reducer = (state = initialState, action) => {
   if (action.type === 'CAKE_ORDERED'){
     return {
-      numCakes: state.numCakes --
+      ...state, 
+      numCakes: state.numCakes--
     }
   }
   return state;
