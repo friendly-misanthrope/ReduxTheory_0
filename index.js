@@ -1,9 +1,8 @@
-// An action is an object with a type property
-// An action creator is a function that returns an action object:
 const redux = require('redux');
 const createStore = redux.createStore;
 const CAKE_ORDERED = 'CAKE_ORDERED';
 const CAKES_RESTOCKED = 'CAKES_RESTOCKED';
+const IS_FROZEN = 'IS_FROZEN';
 
 const orderCake = () => {
   return {
@@ -12,10 +11,19 @@ const orderCake = () => {
   }    
 }
 
+// An action is an object with a type property
+// An action creator is a function that returns an action object:
 const restockCake = (qty = 1) => {
   return {
     type: CAKES_RESTOCKED,
     payload: qty
+  }
+}
+
+const freezeCake = (isFrozen = false) => {
+  return {
+    type: IS_FROZEN,
+    payload: isFrozen
   }
 }
 
@@ -36,6 +44,11 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       numCakes: state.numCakes + action.payload
+    }
+  } else if (action.type === IS_FROZEN) {
+    return {
+      ...state,
+      isFrozen: action.payload
     }
   }
   return state;
@@ -64,4 +77,5 @@ store.dispatch(orderCake());
 // that was returned by the subscribe method.
 
 store.dispatch(restockCake(100));
+store.dispatch(freezeCake(true));
 unsubscribe();
