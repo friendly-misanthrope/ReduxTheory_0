@@ -32,6 +32,13 @@ const orderIceCream = (qty = 1) => {
   }
 }
 
+const restockIceCream = (qty = 1) => {
+  return {
+    type: RESTOCK_ICECREAM,
+    payload: qty
+  }
+}
+
 // A reducer is a function that accepts current state and an action object,
 // and returns the new state:
 const initialState = {
