@@ -43,7 +43,7 @@ const restockIceCream = (qty = 1) => {
 // and returns the new state:
 const initialState = {
   numCakes: 10,
-  isFrozen: false
+  numIceCreams: 20
 }
 
 const reducer = (state = initialState, action) => {
@@ -57,10 +57,15 @@ const reducer = (state = initialState, action) => {
       ...state,
       numCakes: state.numCakes + action.payload
     }
-  } else if (action.type === IS_FROZEN) {
+  } else if (action.type === ORDER_ICECREAM) {
     return {
       ...state,
-      isFrozen: action.payload
+      numIceCreams: state.numIceCreams - action.payload
+    }
+  } else if (action.type === RESTOCK_ICECREAM) {
+    return {
+      ...state,
+      numIceCreams: state.numIceCreams + action.payload
     }
   }
   return state;
