@@ -1,6 +1,7 @@
 const redux = require('redux');
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
+const combineReducers = redux.combineReducers;
 
 const ORDER_CAKE = 'ORDER_CAKE';
 const RESTOCK_CAKE = 'RESTOCK_CAKE';
@@ -85,14 +86,19 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
 const cakeStore = createStore(cakeReducer);
 const iceCreamStore = createStore(iceCreamReducer);
 
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer
+});
+
+const store = createStore(rootReducer);
+
 // Logs the initial state to console, because we haven't yet updated it
-console.log(`Initial cake state: ${JSON.stringify(cakeStore.getState())}`);
-console.log(`Initial ice cream state: ${JSON.stringify(iceCreamStore.getState())}`);
+console.log(`Initial state: ${JSON.stringify(store.getState())}`);
 
 // The subscribe() method accepts a callback function
 // that is called whenever state changes.
-const unsubscribeCake = cakeStore.subscribe(() => console.log(`Updated cake state: ${JSON.stringify(cakeStore.getState())}`));
-const unsubscribeIceCream = iceCreamStore.subscribe(() => console.log(`Updated ice cream state: ${JSON.stringify(iceCreamStore.getState())}`))
+const unsubscribe = store.subscribe(() => console.log(`Updated state: ${JSON.stringify(store.getState())}`));
 
 // The store allows state to be updated via dispatch(), which
 // accepts an action or action creator as an argument.
@@ -108,8 +114,8 @@ const unsubscribeIceCream = iceCreamStore.subscribe(() => console.log(`Updated i
 // store.dispatch(freezeCake(true));
 
 // Bind action creator functions to dispatch()
-const cakeActions = bindActionCreators({ orderCake, restockCake }, cakeStore.dispatch);
-const iceCreamActions = bindActionCreators({ orderIceCream, restockIceCream }, iceCreamStore.dispatch);
+const cakeActions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+const iceCreamActions = bindActionCreators({ orderIceCream, restockIceCream }, store.dispatch);
 
 cakeActions.orderCake(3);
 cakeActions.restockCake(12);
@@ -117,5 +123,4 @@ cakeActions.restockCake(12);
 iceCreamActions.orderIceCream(3);
 iceCreamActions.restockIceCream(5);
 
-unsubscribeCake();
-unsubscribeIceCream();
+unsubscribe();
