@@ -1,6 +1,8 @@
 const redux = require('redux');
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
+const reduxLogger = require('redux-logger');
+const logger = reduxLogger.createLogger();
 
 const axios = require('axios');
 const thunk = require('redux-thunk').thunk;
@@ -66,7 +68,7 @@ const fetchUsers = () => {
     axios.get('https://jsonplaceholder.typicode.com/users')
       .then((res) => {
         const users = res.data.map((user) => {
-          return user.id
+          return user
         })
         dispatch(fetchUsersSuccess(users))
       })
@@ -76,10 +78,10 @@ const fetchUsers = () => {
   }
 }
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 store.subscribe(() => {
-  console.log(JSON.stringify(store.getState()))
+  store.getState()
 })
 
 const userActions = bindActionCreators({ fetchUsers }, store.dispatch)
