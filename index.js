@@ -80,11 +80,11 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
   return state;
 }
 
-// The store is where all global application state is stored.
-// createStore accepts the reducer function as an argument.
-// It exposes a method called getState() which gets the current state.
-const cakeStore = createStore(cakeReducer);
-const iceCreamStore = createStore(iceCreamReducer);
+// // The store is where all global application state is stored.
+// // createStore accepts the reducer function as an argument.
+// // It exposes a method called getState() which gets the current state.
+// const cakeStore = createStore(cakeReducer);
+// const iceCreamStore = createStore(iceCreamReducer);
 
 const rootReducer = combineReducers({
   cake: cakeReducer,

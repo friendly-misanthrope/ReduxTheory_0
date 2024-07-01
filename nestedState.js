@@ -1,6 +1,7 @@
 // Using Immer.js to update state without mutating it
 const redux = require('redux');
-const produce = require('immer').produce();
+const bindActionCreators = redux.bindActionCreators;
+// const produce = require('immer').produce();
 
 // define initial state
 const initialState = {
@@ -34,5 +35,21 @@ const reducer = (state = initialState, action) => {
       }
     }
   }
-  return state
+  return state;
 }
+
+const store = redux.createStore(reducer);
+console.log(`Initial State: ${JSON.stringify(store.getState())}`);
+
+const unsubscribe = store.subscribe(() => {
+  console.log(`Updated State: ${JSON.stringify(store.getState())}`)
+});
+
+const streetActions = bindActionCreators({ updateStreet }, store.dispatch);
+streetActions.updateStreet('1932 181st Street SE')
+
+unsubscribe();
+
+// We can use immer.produce() to do this messy reduction 
+// for us under the hood (without mutating the current state):
+
