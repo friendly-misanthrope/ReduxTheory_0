@@ -1,7 +1,11 @@
 const redux = require('redux');
+const reduxLogger = require('redux-logger');
+
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
 const combineReducers = redux.combineReducers;
+const logger = reduxLogger.createLogger();
+
 
 const ORDER_CAKE = 'ORDER_CAKE';
 const RESTOCK_CAKE = 'RESTOCK_CAKE';
