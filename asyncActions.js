@@ -1,5 +1,7 @@
 const redux = require('redux');
 const createStore = redux.createStore;
+const axios = require('axios');
+const thunk = require('redux-thunk');
 
 const initialState = {
   loading: false,
