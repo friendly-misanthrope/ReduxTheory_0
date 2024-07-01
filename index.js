@@ -8,10 +8,10 @@ const RESTOCK_CAKE = 'RESTOCK_CAKE';
 const ORDER_ICECREAM = 'ORDER_ICECREAM';
 const RESTOCK_ICECREAM = 'RESTOCK_ICECREAM';
 
-const orderCake = () => {
+const orderCake = (qty = 1) => {
   return {
     type: ORDER_CAKE,
-    quantity: 1
+    payload: qty
   }    
 }
 
@@ -50,7 +50,7 @@ const reducer = (state = initialState, action) => {
   if (action.type === ORDER_CAKE){
     return {
       ...state, 
-      numCakes: state.numCakes - 1
+      numCakes: state.numCakes - action.payload
     }
   } else if (action.type === RESTOCK_CAKE) {
     return {
@@ -99,9 +99,7 @@ const unsubscribe = store.subscribe(() => console.log("Updated state:", JSON.str
 // Bind action creator functions to dispatch()
 const actions = bindActionCreators({orderCake, restockCake, orderIceCream, restockIceCream}, store.dispatch);
 
-actions.orderCake();
-actions.orderCake();
-actions.orderCake();
+actions.orderCake(3);
 actions.restockCake(12);
 
 actions.orderIceCream(3);
