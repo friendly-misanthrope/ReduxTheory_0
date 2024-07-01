@@ -12,8 +12,27 @@ const initialState = {
   }
 }
 
+const STREET_UPDATED = 'STREET_UPDATED';
+
+const updateStreet = (street) => {
+  return {
+    type: STREET_UPDATED,
+    payload: street
+  }
+}
+
 // Using just Redux, we would update nested state by using
 // the spread operator & providing the updated state.
-// This can quickly become difficult to read and maintain, so we
-// use immer.produce() to do this for us under the hood without mutating
-// the current state:
+// This can quickly become difficult to read and maintain:
+const reducer = (state = initialState, action) => {
+  if (action.type === STREET_UPDATED) {
+    return {
+      ...state,
+      address: {
+        ...state.address,
+        street: action.payload
+      }
+    }
+  }
+  return state
+}
