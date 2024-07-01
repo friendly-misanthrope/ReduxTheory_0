@@ -97,13 +97,14 @@ const unsubscribe = store.subscribe(() => console.log("Updated state:", JSON.str
   // store.dispatch(freezeCake(true));
 
 // Bind action creator functions to dispatch()
-const actions = bindActionCreators({orderCake, restockCake, freezeCake}, store.dispatch);
+const actions = bindActionCreators({orderCake, restockCake, orderIceCream, restockIceCream}, store.dispatch);
 
 actions.orderCake();
 actions.orderCake();
 actions.orderCake();
-
 actions.restockCake(12);
-actions.freezeCake();
+
+actions.orderIceCream(3);
+actions.restockIceCream(5);
 
 unsubscribe();
