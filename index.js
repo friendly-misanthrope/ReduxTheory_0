@@ -1,5 +1,6 @@
 const redux = require('redux');
 const createStore = redux.createStore;
+const bindActionCreators = redux.bindActionCreators;
 const CAKE_ORDERED = 'CAKE_ORDERED';
 const CAKES_RESTOCKED = 'CAKES_RESTOCKED';
 const IS_FROZEN = 'IS_FROZEN';
@@ -69,13 +70,24 @@ const unsubscribe = store.subscribe(() => console.log("Updated state:", JSON.str
 // The store allows state to be updated via dispatch(), which
 // accepts an action or action creator as an argument.
 // Calling the action creator returns the action.
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake());
+  // store.dispatch(orderCake());
+  // store.dispatch(orderCake());
+  // store.dispatch(orderCake());
 
-// The app can unsubscribe from the Redux store by calling the function
-// that was returned by the subscribe method.
+  // The app can unsubscribe from the Redux store by calling the function
+  // that was returned by the subscribe method.
 
-store.dispatch(restockCake(100));
-store.dispatch(freezeCake(true));
+  // store.dispatch(restockCake(100));
+  // store.dispatch(freezeCake(true));
+
+// Bind action creator functions to dispatch()
+const actions = bindActionCreators({orderCake, restockCake, freezeCake}, store.dispatch);
+
+actions.orderCake();
+actions.orderCake();
+actions.orderCake();
+
+actions.restockCake(12);
+actions.freezeCake();
+
 unsubscribe();
