@@ -29,3 +29,27 @@ const fetchUsersFailed = (error) => {
     payload: error
   }
 }
+
+const reducer = (state = initialState, action) => {
+  if (action.type === FETCH_USERS_REQUESTED) {
+    return {
+      ...state,
+      loading: true
+    }
+  } else if (action.type === FETCH_USERS_SUCCESS) {
+    return {
+      ...state,
+      loading: false,
+      users: action.payload,
+      error: ''
+    }
+  } else if (action.type === FETCH_USERS_FAILED) {
+    return {
+      ...state,
+      loading: false,
+      users: [],
+      error: action.payload
+    }
+  }
+  return state;
+}
