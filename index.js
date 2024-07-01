@@ -1,13 +1,16 @@
 const redux = require('redux');
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
-const CAKE_ORDERED = 'CAKE_ORDERED';
-const CAKES_RESTOCKED = 'CAKES_RESTOCKED';
-const IS_FROZEN = 'IS_FROZEN';
+
+const ORDER_CAKE = 'ORDER_CAKE';
+const RESTOCK_CAKE = 'RESTOCK_CAKE';
+
+const ORDER_ICECREAM = 'ORDER_ICECREAM';
+const RESTOCK_ICECREAM = 'RESTOCK_ICECREAM';
 
 const orderCake = () => {
   return {
-    type: CAKE_ORDERED,
+    type: ORDER_CAKE,
     quantity: 1
   }    
 }
@@ -16,15 +19,16 @@ const orderCake = () => {
 // An action creator is a function that returns an action object:
 const restockCake = (qty = 1) => {
   return {
-    type: CAKES_RESTOCKED,
+    type: RESTOCK_CAKE,
     payload: qty
   }
 }
 
-const freezeCake = (isFrozen = false) => {
+
+const orderIceCream = (qty = 1) => {
   return {
-    type: IS_FROZEN,
-    payload: isFrozen
+    type: ORDER_ICECREAM,
+    payload: qty
   }
 }
 
@@ -36,12 +40,12 @@ const initialState = {
 }
 
 const reducer = (state = initialState, action) => {
-  if (action.type === CAKE_ORDERED){
+  if (action.type === ORDER_CAKE){
     return {
       ...state, 
       numCakes: state.numCakes - 1
     }
-  } else if (action.type === CAKES_RESTOCKED) {
+  } else if (action.type === RESTOCK_CAKE) {
     return {
       ...state,
       numCakes: state.numCakes + action.payload
