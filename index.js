@@ -1,6 +1,7 @@
 const redux = require('redux');
 const reduxLogger = require('redux-logger');
 
+const applyMiddleware = redux.applyMiddleware;
 const createStore = redux.createStore;
 const bindActionCreators = redux.bindActionCreators;
 const combineReducers = redux.combineReducers;
@@ -95,14 +96,14 @@ const rootReducer = combineReducers({
   iceCream: iceCreamReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // Logs the initial state to console, because we haven't yet updated it
 console.log(`Initial state: ${JSON.stringify(store.getState())}`);
 
 // The subscribe() method accepts a callback function
 // that is called whenever state changes.
-const unsubscribe = store.subscribe(() => console.log(`Updated state: ${JSON.stringify(store.getState())}`));
+const unsubscribe = store.subscribe(() => {});
 
 // The store allows state to be updated via dispatch(), which
 // accepts an action or action creator as an argument.
