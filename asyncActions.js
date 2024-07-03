@@ -5,7 +5,7 @@ const reduxLogger = require('redux-logger');
 const logger = reduxLogger.createLogger();
 
 const axios = require('axios');
-const thunk = require('redux-thunk').thunk;
+const { thunk } = require('redux-thunk');
 const applyMiddleware = redux.applyMiddleware
 
 const initialState = {
